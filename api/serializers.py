@@ -4,9 +4,7 @@ from posts.models import Post, Comment
 
 
 class PostSerializer(serializers.ModelSerializer):
-    author = serializers.CharField(
-        max_length=50, read_only=True
-    )
+    author = serializers.StringRelatedField() #Подскажите пожалуйста, какая оптимальная длина строки?
 
     class Meta:
         model = Post
@@ -14,10 +12,9 @@ class PostSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
-    author = serializers.CharField(
-        max_length=50, read_only=True
-    )
-    
+    author = serializers.StringRelatedField()
+    post = serializers.PrimaryKeyRelatedField(read_only=True)
+
     class Meta:
         model = Comment
         fields = '__all__'
